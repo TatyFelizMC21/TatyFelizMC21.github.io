@@ -1,0 +1,47 @@
+html,
+body {
+  background-color: #5b1fe6;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  color: aliceblue; /* */
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4rem;
+}
+
+.main {
+  padding: 1rem; /* Para bordes internos */
+  /* margin: 3rem;  Para bordes externos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  padding: 2rem; /* Para bordes internos */
+}
+
+a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  background-color: bisque;
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  font-size: 2rem;
+  border: 1px solid black;
+  border-radius: 30px;
+}
+
+.boton {
+  margin-block: 2rem;
+}
+
+a:hover {
+  transform: scale(1.1);
+  background-color: rgb(159, 93, 239);
+  box-shadow: 0px 5px 10px rgb(187, 141, 243);
+}
