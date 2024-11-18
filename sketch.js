@@ -2,13 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro");
   const main = document.getElementById("main");
 
-  // Simular carga
+  // Mostrar el contenido principal después de 5 segundos
   setTimeout(() => {
     intro.style.display = "none";
     main.classList.remove("hidden");
-  }, 2000);
+  }, 5000);
 
-  // Fondo animado con burbujas
+  // Canvas para fondo animado
   const canvas = document.getElementById("background");
   const ctx = canvas.getContext("2d");
 
@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       radius: Math.random() * 20 + 10,
-      velocityY: Math.random() * -1 - 0.5,
-      color: `rgba(0, 175, 193, ${Math.random()})`,
+      velocityY: Math.random() * -2 - 1,
+      color: `rgba(255, 255, 255, ${Math.random()})`,
     };
   }
 
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   animate();
 
-  // Cursor personalizado
+  // Cursor personalizado con burbujas
   const cursor = document.createElement("div");
   cursor.className = "cursor";
   document.body.appendChild(cursor);
@@ -70,5 +70,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("mousemove", (e) => {
     cursor.style.left = `${e.pageX}px`;
     cursor.style.top = `${e.pageY}px`;
+
+    const bubble = createBubble();
+    bubble.x = e.pageX;
+    bubble.y = e.pageY;
+    bubble.radius = Math.random() * 10 + 5;
+    bubbles.push(bubble);
   });
 });

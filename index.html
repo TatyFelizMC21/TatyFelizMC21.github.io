@@ -3,60 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portafolio Marino - Tatiana Moreno</title>
-
-    <!-- Fuentes de Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Hoja de estilos -->
+    <title>Portafolio Taty Moreno</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Intro de carga -->
+    <!-- Introducción de carga -->
     <div id="intro">
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <div class="wave"></div>
-      <p>Cargando tu experiencia creativa...</p>
+      <div class="loading-bar">
+        <div class="water"></div>
+      </div>
     </div>
 
     <!-- Contenido principal -->
     <div id="main" class="hidden">
-      <header>
-        <h1>Portafolio Marino</h1>
-        <p>Explora mis proyectos en este océano de creatividad.</p>
-      </header>
-
-      <div class="botonera">
-        <a class="boton" href="https://tatyfelizmc21.github.io/hola_mundo"
-          >Hello World</a
-        >
-        <a class="boton" href="https://tatyfelizmc21.github.io/condicionales"
-          >Condicionales</a
-        >
-        <a class="boton" href="https://tatyfelizmc21.github.io/computer_visual"
-          >Computer Visual</a
-        >
-        <a
-          class="boton"
-          href="https://tatyfelizmc21.github.io/programacion_orientada_a_objetos"
-          >OOP</a
-        >
-        <a class="boton" href="https://tatyfelizmc21.github.io/">For Loop</a>
-        <a class="boton" href="https://tatyfelizmc21.github.io/">Slider</a>
-        <a class="boton" href="https://tatyfelizmc21.github.io/">Wave Fusion</a>
+      <canvas id="background"></canvas>
+      <div class="content">
+        <h1>PORTAFOLIO BY TATY MORENO</h1>
+        <div class="buttons">
+          <a href="#" class="btn">HELLO WORLD</a>
+          <a href="#" class="btn">CONDITIONALS</a>
+          <a href="#" class="btn">COMPUTER VISUAL</a>
+          <a href="#" class="btn">OOP</a>
+          <a href="#" class="btn">FOR LOOP</a>
+          <a href="#" class="btn">SLIDER</a>
+          <a href="#" class="btn">WAVE FUSION</a>
+        </div>
       </div>
     </div>
 
-    <!-- Fondo animado -->
-    <canvas id="background"></canvas>
-
-    <!-- Scripts -->
     <script src="script.js"></script>
   </body>
 </html>
