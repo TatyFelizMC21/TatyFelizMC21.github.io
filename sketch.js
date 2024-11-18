@@ -1,84 +1,88 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const intro = document.getElementById("intro");
-  const main = document.getElementById("main");
+let waveHeight = 50;
+let waveSpeed = 0.03;
+let waveAmplitude = 40;
+let waveOffset = 0;
+let waveFrequency = 0.02;
+let waterLevel = 0;
+let totalHeight = 0;
+let waveColor;
 
-  // Ocultar la pantalla de carga después de 5 segundos
-  setTimeout(() => {
-    intro.style.display = "none";
-    main.classList.remove("hidden");
-  }, 5000);
+let bubbles = [];
+let showContent = false;
 
-  // Configuración del fondo animado
-  const canvas = document.getElementById("background");
-  const ctx = canvas.getContext("2d");
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  waveColor = color(0, 0, 255, 150); // Color del agua (azul claro)
+}
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+function draw() {
+  background(0, 191, 255); // Fondo marino (color del cielo azul)
 
-  const bubbles = [];
+  // Dibuja las olas
+  drawWaves();
 
-  // Crear burbujas
-  function createBubble() {
-    return {
-      x: Math.random() * canvas.width,
-      y: canvas.height + Math.random() * 100,
-      radius: Math.random() * 20 + 10,
-      velocityY: Math.random() * -1 - 0.5,
-      color: `rgba(255, 255, 255, ${Math.random()})`,
+  // Animación de las olas subiendo
+  if (waterLevel < height) {
+    waterLevel += waveHeight / 10;
+  } else {
+    // Una vez llenado el "agua", muestra el contenido
+    if (!showContent) {
+      showContent = true;
+      document.getElementById("content").style.display = "block"; // Muestra el contenido
+    }
+  }
+
+  // Dibuja las burbujas que siguen al cursor
+  drawBubbles();
+}
+
+// Función para dibujar las olas
+function drawWaves() {
+  noStroke();
+  fill(waveColor);
+  for (let x = 0; x < width; x++) {
+    let y =
+      sin(x * waveFrequency + waveOffset) * waveAmplitude + height - waterLevel;
+    ellipse(x, y, waveHeight, waveHeight);
+  }
+  waveOffset += waveSpeed;
+}
+
+// Función para crear burbujas al mover el mouse
+function drawBubbles() {
+  if (mouseIsPressed) {
+    let bubbleSize = random(10, 30);
+    let bubble = {
+      x: mouseX + random(-10, 10),
+      y: mouseY + random(-10, 10),
+      size: bubbleSize,
     };
-  }
-
-  // Actualizar burbujas
-  function updateBubbles() {
-    if (bubbles.length < 50) {
-      bubbles.push(createBubble());
-    }
-
-    for (let i = 0; i < bubbles.length; i++) {
-      const bubble = bubbles[i];
-      bubble.y += bubble.velocityY;
-
-      if (bubble.y < -10) {
-        bubbles.splice(i, 1);
-        i--;
-      }
-    }
-  }
-
-  // Dibujar burbujas
-  function drawBubbles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (const bubble of bubbles) {
-      ctx.beginPath();
-      ctx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
-      ctx.fillStyle = bubble.color;
-      ctx.fill();
-    }
-  }
-
-  // Animación
-  function animate() {
-    updateBubbles();
-    drawBubbles();
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-
-  // Cursor personalizado
-  const cursor = document.createElement("div");
-  cursor.className = "cursor";
-  document.body.appendChild(cursor);
-
-  document.addEventListener("mousemove", (e) => {
-    cursor.style.left = `${e.pageX}px`;
-    cursor.style.top = `${e.pageY}px`;
-
-    const bubble = createBubble();
-    bubble.x = e.pageX;
-    bubble.y = e.pageY;
-    bubble.radius = Math.random() * 10 + 5;
     bubbles.push(bubble);
-  });
-});
+  }
+
+  // Dibujamos cada burbuja
+  for (let i = 0; i < bubbles.length; i++) {
+    let b = bubbles[i];
+    fill(255, 255, 255, 150);
+    noStroke();
+    ellipse(b.x, b.y, b.size);
+  }
+
+  // Elimina las burbujas que ya se han ido
+  bubbles = bubbles.filter((b) => b.y > 0);
+
+  // Actualiza la posición de las burbujas
+  for (let i = 0; i < bubbles.length; i++) {
+    bubbles[i].y -= 1;
+  }
+}
+
+// Cambia el cursor cuando pasa sobre la página
+function mouseMoved() {
+  let bubble = {
+    x: mouseX,
+    y: mouseY,
+    size: random(5, 20),
+  };
+  bubbles.push(bubble);
+}
