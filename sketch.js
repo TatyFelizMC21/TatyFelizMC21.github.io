@@ -1,112 +1,60 @@
-let waveHeight = 60;
-let waveSpeed = 0.05;
-let waveAmplitude = 50;
-let waveOffset = 0;
-let waterLevel = 0;
-let showContent = false;
-let backgroundImage;
-let corals = []; // Arreglo para corales
-let fish = []; // Arreglo para peces
 let bubbles = [];
-
-function preload() {
-  // Cargar imagenes de fondo y elementos marinos
-  backgroundImage = loadImage(
-    "https://images.unsplash.com/photo-1501594907352-3477502b51a1"
-  ); // Fondo marino
-
-  // Cargar corales
-  corals.push(
-    loadImage("https://www.pngrepo.com/download/11592/coral-png-image")
-  ); // Coral 1
-  corals.push(
-    loadImage("https://www.pngrepo.com/download/14975/coral-png-pic")
-  ); // Coral 2
-
-  // Cargar peces
-  fish.push(loadImage("https://www.pngrepo.com/download/8770/fish-png-image")); // Pez 1
-  fish.push(loadImage("https://www.pngrepo.com/download/11270/fish-png-image")); // Pez 2
-}
+let waveOffset = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
+  textAlign(CENTER, CENTER);
+  document.getElementById("title").onclick = showButtons;
 }
 
 function draw() {
-  // Fondo marino
-  image(backgroundImage, 0, 0, width, height);
-
-  // Dibuja las olas
   drawWaves();
-
-  // Animación de las olas subiendo
-  if (waterLevel < height) {
-    waterLevel += waveHeight / 10;
-  } else {
-    // Una vez que el agua llena la pantalla, muestra el contenido
-    if (!showContent) {
-      showContent = true;
-      document.getElementById("content").style.display = "block"; // Muestra el contenido del portafolio
-    }
-  }
-
-  // Dibuja las burbujas al mover el ratón
   drawBubbles();
-
-  // Dibuja los corales y peces en el fondo
-  drawMarineLife();
 }
 
 function drawWaves() {
-  fill(0, 0, 255, 150); // Color azul del agua
-  for (let x = 0; x < width; x++) {
-    let y = noise(x * 0.05 + waveOffset) * waveAmplitude + height - waterLevel;
-    ellipse(x, y, waveHeight, waveHeight); // Dibujar cada ola como un círculo
+  // Fondo de olas
+  background(0, 50, 100);
+  noFill();
+  stroke(255, 255, 255, 100);
+  strokeWeight(2);
+
+  for (let y = height * 0.8; y < height; y += 20) {
+    beginShape();
+    for (let x = 0; x < width; x += 10) {
+      let angle = (x + waveOffset) * 0.02;
+      let waveHeight = sin(angle) * 20;
+      vertex(x, y + waveHeight);
+    }
+    endShape();
   }
-  waveOffset += waveSpeed;
+
+  waveOffset += 2; // Velocidad de las olas
 }
 
 function drawBubbles() {
-  if (mouseIsPressed) {
-    let bubbleSize = random(10, 30);
-    let bubble = {
-      x: mouseX + random(-10, 10),
-      y: mouseY + random(-10, 10),
-      size: bubbleSize,
-    };
-    bubbles.push(bubble);
-  }
-
-  // Dibujar burbujas
-  for (let i = 0; i < bubbles.length; i++) {
+  // Burbujas que siguen al cursor
+  for (let i = bubbles.length - 1; i >= 0; i--) {
     let b = bubbles[i];
-    fill(255, 255, 255, 150);
-    noStroke();
+    fill(173, 216, 230, 150);
     ellipse(b.x, b.y, b.size);
-  }
+    b.y -= b.speed;
 
-  // Eliminar burbujas que han subido demasiado
-  bubbles = bubbles.filter((b) => b.y > 0);
-
-  // Actualizar posición de las burbujas
-  for (let i = 0; i < bubbles.length; i++) {
-    bubbles[i].y -= 1; // Las burbujas suben
+    if (b.y < 0) bubbles.splice(i, 1);
   }
 }
 
-function drawMarineLife() {
-  // Dibujar corales
-  for (let i = 0; i < corals.length; i++) {
-    let coral = corals[i];
-    image(coral, random(width), height - random(50, 150), 100, 100);
-  }
+function mouseMoved() {
+  bubbles.push({
+    x: mouseX,
+    y: mouseY,
+    size: random(10, 30),
+    speed: random(1, 3),
+  });
+}
 
-  // Dibujar peces nadando lentamente
-  for (let i = 0; i < fish.length; i++) {
-    let fishImg = fish[i];
-    let xPos = (frameCount * 0.5 + i * 100) % width;
-    let yPos = height - random(100, 200);
-    image(fishImg, xPos, yPos, 50, 30);
-  }
+function showButtons() {
+  let buttons = document.getElementById("buttons");
+  buttons.classList.remove("hidden");
 }
