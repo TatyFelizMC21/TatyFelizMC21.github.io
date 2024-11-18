@@ -48,21 +48,3 @@ html {
   background-color: rgba(0, 0, 255, 1);
   transform: scale(1.1);
 }
-
-/* Burbuja */
-.bubble {
-  position: absolute;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.6);
-  pointer-events: none;
-  animation: rise 3s infinite;
-}
-
-@keyframes rise {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    transform: translateY(-300px) scale(0.5);
-  }
-}

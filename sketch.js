@@ -1,42 +1,33 @@
-let waveHeight = 80;
+let waveHeight = 60;
 let waveSpeed = 0.05;
-let waveAmplitude = 80;
+let waveAmplitude = 50;
 let waveOffset = 0;
-let waveFrequency = 0.04;
 let waterLevel = 0;
-let totalHeight = 0;
-let waveColor;
-let backgroundImage;
-
-let bubbles = [];
 let showContent = false;
-
+let backgroundImage;
 let corals = []; // Arreglo para corales
 let fish = []; // Arreglo para peces
+let bubbles = [];
 
 function preload() {
   // Carga de imágenes (ajusta las rutas según donde tengas las imágenes)
-  backgroundImage = loadImage("ocean-background.jpg"); // Fondo marino
+  backgroundImage = loadImage("assets/ocean-background.jpg"); // Fondo marino
   for (let i = 0; i < 5; i++) {
-    corals.push(loadImage("coral" + (i + 1) + ".png")); // Imágenes de corales
+    corals.push(loadImage(`assets/coral${i + 1}.png`)); // Imágenes de corales
   }
   for (let i = 0; i < 5; i++) {
-    fish.push(loadImage("fish" + (i + 1) + ".png")); // Imágenes de peces
+    fish.push(loadImage(`assets/fish${i + 1}.png`)); // Imágenes de peces
   }
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  waveColor = color(0, 0, 255, 150); // Color del agua (azul claro)
   noStroke();
 }
 
 function draw() {
-  // Fondo marino con textura
+  // Fondo marino
   image(backgroundImage, 0, 0, width, height);
-
-  // Agregar gradiente de luz en el fondo (simula el sol filtrándose por el agua)
-  addSunlightEffect();
 
   // Dibuja las olas
   drawWaves();
@@ -45,34 +36,29 @@ function draw() {
   if (waterLevel < height) {
     waterLevel += waveHeight / 10;
   } else {
-    // Una vez llenado el "agua", muestra el contenido
+    // Una vez que el agua llena la pantalla, muestra el contenido
     if (!showContent) {
       showContent = true;
       document.getElementById("content").style.display = "block"; // Muestra el contenido
     }
   }
 
-  // Dibuja las burbujas que siguen al cursor
+  // Dibuja las burbujas
   drawBubbles();
 
-  // Dibuja los corales y peces
+  // Dibuja los corales y peces en el fondo
   drawMarineLife();
 }
 
-// Función para dibujar las olas
 function drawWaves() {
-  fill(waveColor);
+  fill(0, 0, 255, 150); // Color azul del agua
   for (let x = 0; x < width; x++) {
-    let y =
-      noise(x * waveFrequency + waveOffset) * waveAmplitude +
-      height -
-      waterLevel;
+    let y = noise(x * 0.05 + waveOffset) * waveAmplitude + height - waterLevel;
     ellipse(x, y, waveHeight, waveHeight);
   }
   waveOffset += waveSpeed;
 }
 
-// Función para crear burbujas al mover el mouse
 function drawBubbles() {
   if (mouseIsPressed) {
     let bubbleSize = random(10, 30);
@@ -101,22 +87,6 @@ function drawBubbles() {
   }
 }
 
-// Función para agregar un efecto de luz del sol filtrándose
-function addSunlightEffect() {
-  let sunlightColor = color(255, 255, 255, 50);
-  for (let i = 0; i < width; i++) {
-    let alpha = map(i, 0, width, 0, 255);
-    fill(
-      sunlightColor.levels[0],
-      sunlightColor.levels[1],
-      sunlightColor.levels[2],
-      alpha
-    );
-    rect(i, 0, 1, height);
-  }
-}
-
-// Función para dibujar corales y peces (elementos del fondo marino)
 function drawMarineLife() {
   // Dibujar corales
   for (let i = 0; i < corals.length; i++) {
@@ -124,7 +94,7 @@ function drawMarineLife() {
     image(coral, random(width), height - random(50, 150), 100, 100);
   }
 
-  // Dibujar peces que se mueven lentamente
+  // Dibujar peces nadando lentamente
   for (let i = 0; i < fish.length; i++) {
     let fishImg = fish[i];
     let xPos = (frameCount * 0.5 + i * 100) % width;
