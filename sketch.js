@@ -2,67 +2,63 @@ document.addEventListener("DOMContentLoaded", () => {
   const loading = document.getElementById("loading");
   const main = document.getElementById("main");
 
-  // Simular carga y mostrar contenido principal
+  // Simular carga
   setTimeout(() => {
     loading.style.display = "none";
     main.classList.remove("hidden");
   }, 3000);
 
-  // Fondo interactivo
+  // Fondo con burbujas
   const canvas = document.getElementById("background");
   const ctx = canvas.getContext("2d");
 
-  let particles = [];
-  const colors = ["#FF9A9E", "#FAD0C4", "#F6D365", "#FDA085"];
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
+  const bubbles = [];
 
-  function createParticle(x, y) {
+  function createBubble() {
     return {
-      x,
-      y,
-      size: Math.random() * 4 + 1,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      velocityX: (Math.random() - 0.5) * 2,
-      velocityY: (Math.random() - 0.5) * 2,
-      life: 100,
+      x: Math.random() * canvas.width,
+      y: canvas.height + 10,
+      radius: Math.random() * 20 + 10,
+      velocityY: Math.random() * -2 - 1,
+      color: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
+        Math.random() * 255
+      )}, ${Math.floor(Math.random() * 255)}, 0.7)`,
     };
   }
 
-  function updateParticles() {
-    particles.forEach((p, index) => {
-      p.x += p.velocityX;
-      p.y += p.velocityY;
-      p.life -= 1;
-
-      if (p.life <= 0) particles.splice(index, 1);
-    });
-  }
-
-  function drawParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((p) => {
-      ctx.fillStyle = p.color;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
-    });
-  }
-
-  canvas.addEventListener("mousemove", (e) => {
-    for (let i = 0; i < 5; i++) {
-      particles.push(createParticle(e.clientX, e.clientY));
+  function updateBubbles() {
+    if (bubbles.length < 50) {
+      bubbles.push(createBubble());
     }
-  });
+
+    for (let i = 0; i < bubbles.length; i++) {
+      const bubble = bubbles[i];
+      bubble.y += bubble.velocityY;
+
+      if (bubble.y < -10) {
+        bubbles.splice(i, 1);
+        i--;
+      }
+    }
+  }
+
+  function drawBubbles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const bubble of bubbles) {
+      ctx.beginPath();
+      ctx.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
+      ctx.fillStyle = bubble.color;
+      ctx.fill();
+    }
+  }
 
   function animate() {
-    updateParticles();
-    drawParticles();
+    updateBubbles();
+    drawBubbles();
     requestAnimationFrame(animate);
   }
 
