@@ -11,9 +11,10 @@ html {
   font-family: Arial, sans-serif;
   overflow: hidden;
   position: relative;
+  background-color: #87ceeb; /* Fondo azul del cielo */
 }
 
-/* Estilos para el contenido que aparece después de la animación de las olas */
+/* Estilos para el contenido */
 #content {
   position: absolute;
   top: 0;
@@ -22,12 +23,13 @@ html {
   text-align: center;
   display: none;
   z-index: 10;
+  color: white;
 }
 
 #portfolio-title {
-  color: white;
   font-size: 3rem;
   margin-top: 30px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .project-btn {
@@ -39,13 +41,15 @@ html {
   font-size: 1.2rem;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.3s;
 }
 
 .project-btn:hover {
   background-color: rgba(0, 0, 255, 1);
+  transform: scale(1.1);
 }
 
-/* Estilo para las burbujas */
+/* Burbuja */
 .bubble {
   position: absolute;
   border-radius: 50%;
