@@ -2,13 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro");
   const main = document.getElementById("main");
 
-  // Mostrar el contenido principal después de 5 segundos
+  // Ocultar la pantalla de carga después de 5 segundos
   setTimeout(() => {
     intro.style.display = "none";
     main.classList.remove("hidden");
   }, 5000);
 
-  // Canvas para fondo animado
+  // Configuración del fondo animado
   const canvas = document.getElementById("background");
   const ctx = canvas.getContext("2d");
 
@@ -17,16 +17,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const bubbles = [];
 
+  // Crear burbujas
   function createBubble() {
     return {
       x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
+      y: canvas.height + Math.random() * 100,
       radius: Math.random() * 20 + 10,
-      velocityY: Math.random() * -2 - 1,
+      velocityY: Math.random() * -1 - 0.5,
       color: `rgba(255, 255, 255, ${Math.random()})`,
     };
   }
 
+  // Actualizar burbujas
   function updateBubbles() {
     if (bubbles.length < 50) {
       bubbles.push(createBubble());
@@ -43,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Dibujar burbujas
   function drawBubbles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -54,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Animación
   function animate() {
     updateBubbles();
     drawBubbles();
@@ -62,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   animate();
 
-  // Cursor personalizado con burbujas
+  // Cursor personalizado
   const cursor = document.createElement("div");
   cursor.className = "cursor";
   document.body.appendChild(cursor);
