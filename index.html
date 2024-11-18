@@ -1,61 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- ****************************************************************************** -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tatiana Moreno</title>
+    <title>Portafolio - Tatiana Moreno</title>
 
+    <!-- Fuentes de Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
 
+    <!-- Hoja de estilos -->
     <link rel="stylesheet" href="style.css" />
   </head>
-  <!-- ****************************************************************************** -->
   <body>
-    <div class="main">
-      <div class="container">
-        <header>
-          <h1>Tatiana Moreno - P5.js</h1>
-        </header>
-        <div class="botonera">
-        <!-- ****************************************************************************** -->
-          <div class="boton">
-            <a href="https://tatyfelizmc21.github.io/hola_mundo">HELLO WORLD</a>
-          </div>
-        <!-- ****************************************************************************** -->
-          <div class="boton"></div>
-            <a href="https://tatyfelizmc21.github.io/condicionales">CONDITIONALES</a>
-          </div>
-        <!-- ****************************************************************************** -->
-          <div class="boton"></div>
-            <a href="https://tatyfelizmc21.github.io/computer_visual">COMPUTER VISUAL</a>
-          </div>
-        <!-- ****************************************************************************** -->
-          <div class="boton"></div>
-            <a href="https://tatyfelizmc21.github.io/programacion_orientada_a_objetos">OBJECT-ORIENTED PROGRAMMING</a>
-          </div>
-        <!-- ****************************************************************************** -->
-          <div class="boton"></div>
-            <a href="https://tatyfelizmc21.github.io/">FOR LOOP</a>
-          </div>
-        <!-- ****************************************************************************** -->
-          <div class="boton"></div>
-            <a href="https://tatyfelizmc21.github.io/">SLIDER</a>
-          </div>
-        <!-- ****************************************************************************** -->
-          <div class="boton"></div>
-            <a href="https://tatyfelizmc21.github.io/">WAVE FUSION COLAPSE</a>
-          </div>
-        <!-- ****************************************************************************** -->
-        </div>
+    <!-- Intro de carga -->
+    <div id="loading">
+      <h2>Cargando...</h2>
+      <div class="loader"></div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div id="main" class="hidden">
+      <header>
+        <h1>Portafolio de Tatiana Moreno</h1>
+      </header>
+
+      <div class="botonera">
+        <!-- Botones a trabajos -->
+        <a class="boton" href="https://tatyfelizmc21.github.io/hola_mundo"
+          >HELLO WORLD</a
+        >
+        <a class="boton" href="https://tatyfelizmc21.github.io/condicionales"
+          >CONDITIONALES</a
+        >
+        <a class="boton" href="https://tatyfelizmc21.github.io/computer_visual"
+          >COMPUTER VISUAL</a
+        >
+        <a
+          class="boton"
+          href="https://tatyfelizmc21.github.io/programacion_orientada_a_objetos"
+          >OBJECT-ORIENTED PROGRAMMING</a
+        >
+        <a class="boton" href="https://tatyfelizmc21.github.io/">FOR LOOP</a>
+        <a class="boton" href="https://tatyfelizmc21.github.io/">SLIDER</a>
+        <a class="boton" href="https://tatyfelizmc21.github.io/"
+          >WAVE FUSION COLAPSE</a
+        >
       </div>
     </div>
-  </body>
 
-  <!-- ****************************************************************************** -->
+    <!-- Fondo interactivo -->
+    <canvas id="background"></canvas>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+  </body>
 </html>
