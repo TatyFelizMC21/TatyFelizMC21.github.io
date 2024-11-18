@@ -10,14 +10,22 @@ let fish = []; // Arreglo para peces
 let bubbles = [];
 
 function preload() {
-  // Carga de imágenes (ajusta las rutas según donde tengas las imágenes)
-  backgroundImage = loadImage("assets/ocean-background.jpg"); // Fondo marino
-  for (let i = 0; i < 5; i++) {
-    corals.push(loadImage(`assets/coral${i + 1}.png`)); // Imágenes de corales
-  }
-  for (let i = 0; i < 5; i++) {
-    fish.push(loadImage(`assets/fish${i + 1}.png`)); // Imágenes de peces
-  }
+  // Cargar imagenes de fondo y elementos marinos
+  backgroundImage = loadImage(
+    "https://images.unsplash.com/photo-1501594907352-3477502b51a1"
+  ); // Fondo marino
+
+  // Cargar corales
+  corals.push(
+    loadImage("https://www.pngrepo.com/download/11592/coral-png-image")
+  ); // Coral 1
+  corals.push(
+    loadImage("https://www.pngrepo.com/download/14975/coral-png-pic")
+  ); // Coral 2
+
+  // Cargar peces
+  fish.push(loadImage("https://www.pngrepo.com/download/8770/fish-png-image")); // Pez 1
+  fish.push(loadImage("https://www.pngrepo.com/download/11270/fish-png-image")); // Pez 2
 }
 
 function setup() {
@@ -39,11 +47,11 @@ function draw() {
     // Una vez que el agua llena la pantalla, muestra el contenido
     if (!showContent) {
       showContent = true;
-      document.getElementById("content").style.display = "block"; // Muestra el contenido
+      document.getElementById("content").style.display = "block"; // Muestra el contenido del portafolio
     }
   }
 
-  // Dibuja las burbujas
+  // Dibuja las burbujas al mover el ratón
   drawBubbles();
 
   // Dibuja los corales y peces en el fondo
@@ -54,7 +62,7 @@ function drawWaves() {
   fill(0, 0, 255, 150); // Color azul del agua
   for (let x = 0; x < width; x++) {
     let y = noise(x * 0.05 + waveOffset) * waveAmplitude + height - waterLevel;
-    ellipse(x, y, waveHeight, waveHeight);
+    ellipse(x, y, waveHeight, waveHeight); // Dibujar cada ola como un círculo
   }
   waveOffset += waveSpeed;
 }
@@ -70,7 +78,7 @@ function drawBubbles() {
     bubbles.push(bubble);
   }
 
-  // Dibujamos cada burbuja
+  // Dibujar burbujas
   for (let i = 0; i < bubbles.length; i++) {
     let b = bubbles[i];
     fill(255, 255, 255, 150);
@@ -78,12 +86,12 @@ function drawBubbles() {
     ellipse(b.x, b.y, b.size);
   }
 
-  // Elimina las burbujas que ya se han ido
+  // Eliminar burbujas que han subido demasiado
   bubbles = bubbles.filter((b) => b.y > 0);
 
-  // Actualiza la posición de las burbujas
+  // Actualizar posición de las burbujas
   for (let i = 0; i < bubbles.length; i++) {
-    bubbles[i].y -= 1;
+    bubbles[i].y -= 1; // Las burbujas suben
   }
 }
 
