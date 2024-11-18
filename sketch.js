@@ -65,4 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Cursor personalizado
   const cursor = document.createElement("div");
   cursor.className = "cursor";
-  document.body
+  document.body.appendChild(cursor);
+
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = `${e.pageX}px`;
+    cursor.style.top = `${e.pageY}px`;
+  });
+});
