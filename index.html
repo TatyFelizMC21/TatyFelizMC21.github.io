@@ -1,25 +1,60 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portafolio - Mar</title>
+    <title>Tatiana Moreno</title>
+
+    <!-- Fuentes y estilos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Contenido que aparece cuando el agua llena la pantalla -->
-    <div id="content" style="display: none">
-      <h1 id="portfolio-title">Mi Portafolio</h1>
-      <div id="buttons">
-        <button class="project-btn">Proyecto 1</button>
-        <button class="project-btn">Proyecto 2</button>
-        <button class="project-btn">Proyecto 3</button>
+    <!-- Pantalla de carga -->
+    <div id="loading-screen">
+      <div class="loader">
+        <div class="small-jellyfish"></div>
+        <div class="small-jellyfish"></div>
+        <div class="small-jellyfish"></div>
+      </div>
+      <p>Cargando...</p>
+    </div>
+
+    <!-- Contenido principal -->
+    <div id="main-content" class="hidden">
+      <canvas id="background"></canvas>
+      <div class="container">
+        <header>
+          <h1>Tatiana Moreno - Portafolio</h1>
+        </header>
+        <div class="botonera">
+          <a href="https://tatyfelizmc21.github.io/hola_mundo" class="btn"
+            >Hello World</a
+          >
+          <a href="https://tatyfelizmc21.github.io/condicionales" class="btn"
+            >Conditionales</a
+          >
+          <a href="https://tatyfelizmc21.github.io/computer_visual" class="btn"
+            >Computer Visual</a
+          >
+          <a
+            href="https://tatyfelizmc21.github.io/programacion_orientada_a_objetos"
+            class="btn"
+            >Object-Oriented Programming</a
+          >
+          <a href="https://tatyfelizmc21.github.io/" class="btn">For Loop</a>
+          <a href="https://tatyfelizmc21.github.io/" class="btn">Slider</a>
+          <a href="https://tatyfelizmc21.github.io/" class="btn"
+            >Wave Fusion Collapse</a
+          >
+        </div>
       </div>
     </div>
 
-    <!-- Cargar p5.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <!-- Cargar archivo JavaScript -->
     <script src="sketch.js"></script>
   </body>
 </html>

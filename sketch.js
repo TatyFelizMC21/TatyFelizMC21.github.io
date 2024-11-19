@@ -1,60 +1,68 @@
-let bubbles = [];
-let waveOffset = 0;
+document.addEventListener("DOMContentLoaded", () => {
+  const loadingScreen = document.getElementById("loading-screen");
+  const mainContent = document.getElementById("main-content");
 
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  noStroke();
-  textAlign(CENTER, CENTER);
-  document.getElementById("title").onclick = showButtons;
-}
+  // Simula el tiempo de carga
+  setTimeout(() => {
+    loadingScreen.style.display = "none";
+    mainContent.classList.remove("hidden");
+  }, 3000);
 
-function draw() {
-  drawWaves();
-  drawBubbles();
-}
+  // Fondo animado
+  const canvas = document.getElementById("background");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-function drawWaves() {
-  // Fondo de olas
-  background(0, 50, 100);
-  noFill();
-  stroke(255, 255, 255, 100);
-  strokeWeight(2);
+  const jellyfish = [];
 
-  for (let y = height * 0.8; y < height; y += 20) {
-    beginShape();
-    for (let x = 0; x < width; x += 10) {
-      let angle = (x + waveOffset) * 0.02;
-      let waveHeight = sin(angle) * 20;
-      vertex(x, y + waveHeight);
+  function createJellyfish() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 40 + 20,
+      velocityY: Math.random() * -0.5 - 0.5,
+      color: `rgba(${Math.random() * 50}, ${Math.random() * 150}, 255, 0.7)`,
+    };
+  }
+
+  function updateJellyfish() {
+    while (jellyfish.length < 30) {
+      jellyfish.push(createJellyfish());
     }
-    endShape();
+
+    for (const jelly of jellyfish) {
+      jelly.y += jelly.velocityY;
+      if (jelly.y < -50) jelly.y = canvas.height;
+    }
   }
 
-  waveOffset += 2; // Velocidad de las olas
-}
+  function drawJellyfish() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-function drawBubbles() {
-  // Burbujas que siguen al cursor
-  for (let i = bubbles.length - 1; i >= 0; i--) {
-    let b = bubbles[i];
-    fill(173, 216, 230, 150);
-    ellipse(b.x, b.y, b.size);
-    b.y -= b.speed;
-
-    if (b.y < 0) bubbles.splice(i, 1);
+    for (const jelly of jellyfish) {
+      ctx.beginPath();
+      ctx.arc(jelly.x, jelly.y, jelly.radius, 0, Math.PI * 2);
+      ctx.fillStyle = jelly.color;
+      ctx.fill();
+    }
   }
-}
 
-function mouseMoved() {
-  bubbles.push({
-    x: mouseX,
-    y: mouseY,
-    size: random(10, 30),
-    speed: random(1, 3),
+  function animate() {
+    updateJellyfish();
+    drawJellyfish();
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Cursor interactivo
+  const cursor = document.createElement("div");
+  cursor.className = "cursor";
+  document.body.appendChild(cursor);
+
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = `${e.pageX}px`;
+    cursor.style.top = `${e.pageY}px`;
   });
-}
-
-function showButtons() {
-  let buttons = document.getElementById("buttons");
-  buttons.classList.remove("hidden");
-}
+});
