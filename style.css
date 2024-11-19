@@ -14,35 +14,42 @@ html {
   color: white;
 }
 
-/* Pantalla de carga */
+/* General */
 #loading-screen {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   width: 100%;
   height: 100%;
-  background: linear-gradient(120deg, #04189c, #09a1ff);
+  background: linear-gradient(120deg, #263deb19, #dbeaf3);
+  background: #032032;
   z-index: 1000;
   position: fixed;
+  text-align: center;
 }
 
 .loader {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
 }
 
 .small-jellyfish {
   width: 30px;
   height: 30px;
-  background: radial-gradient(circle, #a1dae5, transparent 60%);
+  margin-top: 2rem;
+  background: radial-gradient(circle, #a1dae5, #6ccfe9 70%, transparent 90%);
   border-radius: 50%;
-  animation: float 1s ease-in-out infinite;
+  animation: float 1.5s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(97, 219, 255, 0.6);
 }
 
 .small-jellyfish:nth-child(2) {
   animation-delay: 0.2s;
 }
+
 .small-jellyfish:nth-child(3) {
   animation-delay: 0.4s;
 }
@@ -53,7 +60,7 @@ html {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-15px);
+    transform: translateY(-20px);
   }
 }
 
@@ -87,9 +94,9 @@ header h1 {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  justify-content: center; /* Centra los botones verticalmente dentro del contenedor */
-  align-items: center; /* Centra los botones horizontalmente */
-  height: 60vh; /* Hace que la botonera ocupe toda la altura de la pantalla */
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
 }
 
 /* Estilo para los botones */
@@ -105,7 +112,6 @@ header h1 {
   transition: transform 0.3s, background 0.3s;
 }
 
-/* Efecto hover para los botones */
 .btn:hover {
   transform: scale(1.1);
   background: #0078be09;

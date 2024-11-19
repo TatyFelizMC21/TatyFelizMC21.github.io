@@ -6,5 +6,5 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     loadingScreen.style.display = "none";
     mainContent.classList.remove("hidden");
-  }, 3000); // Cambia el tiempo si es necesario
+  }, 3000);
 });
